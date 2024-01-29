@@ -9,7 +9,6 @@ import { calcAllFinalGrade, calculateStudentFinalGrade, getAssignmentWeights} fr
  */
 import { BASE_API_URL, GET_DEFAULT_HEADERS, MY_BU_ID } from "./globals";
 import { IUniversityClass, IStudent } from "./types/api_types";
-import { s } from "@fullcalendar/core/internal-common";
 
 function App() {
   // You will need to use more of these!
