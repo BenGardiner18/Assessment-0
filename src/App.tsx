@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect,useCallback,useState } from "react";
 import Grid from "@mui/material/Unstable_Grid2";
 import { Select, Typography, MenuItem, SelectChangeEvent} from "@mui/material";
 import { GradeTable } from "./components/GradeTable";
@@ -62,22 +62,8 @@ function App() {
     const className:string = json.title;
     return className;
   }
-
-  useEffect(() => {
-    fetchClasses();
-  },[])
-
-  useEffect(() => {
-    fetchStudents();
-
-    }, [currClassId]);
-
-  const handleSelectChange = (event: SelectChangeEvent<string>) => {
-    const newValue = event.target.value;
-    setCurrClassId(newValue);
-  };
-
-  const fetchStudents = async () => {
+  
+  const fetchStudents = useCallback(async () => {
     const res = await fetch(`${BASE_API_URL}/class/listStudents/${currClassId}?buid=${MY_BU_ID}`, {
       method: "GET",
       headers: GET_DEFAULT_HEADERS(),
@@ -92,7 +78,23 @@ function App() {
     const students = await Promise.all(studentInfoPromises);
   
     setStudentList(students);
+  }, [currClassId]);
+
+  useEffect(() => {
+    fetchClasses();
+  },[])
+
+  useEffect(() => {
+    fetchStudents();
+  }, [currClassId, fetchStudents]);
+  
+
+  const handleSelectChange = (event: SelectChangeEvent<string>) => {
+    const newValue = event.target.value;
+    setCurrClassId(newValue);
   };
+
+  
   
 
   const fetchStudentInfo = async (studentId: string, weights: Array<number>,className:string) => {
