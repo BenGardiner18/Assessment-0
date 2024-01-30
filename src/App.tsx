@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Unstable_Grid2";
 import { Select, Typography, MenuItem, SelectChangeEvent} from "@mui/material";
 import { GradeTable } from "./components/GradeTable";
-import { calcAllFinalGrade, calculateStudentFinalGrade, getAssignmentWeights} from "./utils/calculate_grade";
+import { calculateStudentFinalGrade, getAssignmentWeights} from "./utils/calculate_grade";
 
 /**
  * You will find globals from this file useful!
@@ -13,11 +13,12 @@ import { IUniversityClass, IStudent } from "./types/api_types";
 function App() {
   // You will need to use more of these!
   const [currClassId, setCurrClassId] = useState<string>("");
-  const [currClassName,setCurrClassName] = useState<string>("");
   const [classList, setClassList] = useState<IUniversityClass[]>([]);
   const [studentList, setStudentList] = useState<IStudent[]>([]);
 
   const semester = "fall2022";
+
+  // testing
 
   const fetchClasses = async () => {
     // fetch classes from the API
